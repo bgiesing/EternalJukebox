@@ -21,7 +21,7 @@ object MediaWrapper {
             }
 
         fun convert(input: File, output: File, error: File): Boolean {
-            val ffmpegProcess = ProcessBuilder().command("ffmpeg", "-i", input.absolutePath, output.absolutePath).redirectErrorStream(true).redirectOutput(error).start()
+            val ffmpegProcess = ProcessBuilder().command("ffmpeg", "-i", input.absolutePath, "-map", "0:a:0", "-vn", output.absolutePath).redirectErrorStream(true).redirectOutput(error).start()
 
             if (ffmpegProcess.waitFor(60, TimeUnit.SECONDS)) {
                 return ffmpegProcess.exitValue() == 0
